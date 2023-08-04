@@ -33,7 +33,7 @@ private fun initAdapter() {
     val adapter = AdapterTerreno()
     binding.recyclerTerreno.adapter = adapter
     //a continuaciòn se observa cuando llega la informaciòn y se muestra a travez del LiveData
-    terrenoVM.terrenosLiveData.observe(viewLifecycleOwner){
+    terrenoVM.terrenosLiveData().observe(viewLifecycleOwner){
         adapter.setData(it)
     }
 

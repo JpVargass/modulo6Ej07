@@ -3,9 +3,8 @@ package cl.jpvs.modulo6ej05.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import cl.jpvs.modulo6ej05.R
+import cl.jpvs.modulo6ej05.data.local.TerrenoEntity
 import cl.jpvs.modulo6ej05.data.remote.Terreno
-import cl.jpvs.modulo6ej05.databinding.FragmentListadoTerrenosBinding
 import cl.jpvs.modulo6ej05.databinding.ItemTerrenoBinding
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -13,7 +12,7 @@ import coil.transform.CircleCropTransformation
 class AdapterTerreno : RecyclerView.Adapter<AdapterTerreno.ItemTerrenoViewHolder>(){
 
     lateinit var binding: ItemTerrenoBinding
-    private val listItemTerrenos = mutableListOf<Terreno>()
+    private val listItemTerrenos = mutableListOf<TerrenoEntity>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTerrenoViewHolder {
@@ -31,21 +30,20 @@ class AdapterTerreno : RecyclerView.Adapter<AdapterTerreno.ItemTerrenoViewHolder
         val terreno = listItemTerrenos[position]
         holder.bind(terreno)
     }
-    fun setData(terreno : List<Terreno>){
+    fun setData(terreno : List<TerrenoEntity>){
         this.listItemTerrenos.clear()
         this.listItemTerrenos.addAll(terreno)
         notifyDataSetChanged()
     }
 
-    class ItemTerrenoViewHolder(val v: ItemTerrenoBinding): RecyclerView.ViewHolder(v.root) {
-     fun bind(terreno : Terreno) {
-         v.tvType.text = terreno.tipo
-         v.tvPrice.text = terreno.precio.toString()
-         v.imagenTerreno.load(terreno.img){
+    class ItemTerrenoViewHolder(val binding: ItemTerrenoBinding): RecyclerView.ViewHolder(binding.root) {
+     fun bind(terreno: TerrenoEntity) {
+         binding.imagenTerreno.load(terreno.imagen){
              crossfade(true)
              transformations(CircleCropTransformation())
          }
      }
     }
+
 
 }

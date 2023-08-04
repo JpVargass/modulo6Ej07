@@ -7,15 +7,17 @@ import cl.jpvs.modulo6ej05.data.local.TerrenoEntity
 import cl.jpvs.modulo6ej05.data.remote.Terreno
 import cl.jpvs.modulo6ej05.data.remote.TerrenoAPI
 
-class Repositorio(private val terrenoAPI: TerrenoAPI, private val  terrenoDao: TerrenoDao) {
-fun obtenerTerrenos(): LiveData<List<TerrenoEntity>> = terrenoDao.obtenerTerrenos()
+class Repositorio(private val terrenoAPI: TerrenoAPI, private val terrenoDao: TerrenoDao) {
+    fun obtenerTerrenos(): LiveData<List<TerrenoEntity>> = terrenoDao.obtenerTerrenos()
 
 
     suspend fun cargarTerreno() {
-          val respuesta =terrenoAPI.getData()
-        if (respuesta.isSuccessful){
+        val respuesta = terrenoAPI.getData()
+        if (respuesta.isSuccessful) {
             val resp = respuesta.body()
-            resp?.let {
+            resp?.let { terrenos ->
+                val terrenosEntity = terrenos.map { it.transformar() }
+                terrenoDao.insertarTerrenos(terrenosEntity)
 
             }
         }
@@ -23,3 +25,6 @@ fun obtenerTerrenos(): LiveData<List<TerrenoEntity>> = terrenoDao.obtenerTerreno
     }
 
 }
+
+fun Terreno.transformar(): TerrenoEntity =
+    TerrenoEntity(this.id, this.precio, this.tipo, this.img)
