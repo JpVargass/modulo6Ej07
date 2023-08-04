@@ -38,6 +38,8 @@ class AdapterTerreno : RecyclerView.Adapter<AdapterTerreno.ItemTerrenoViewHolder
 
     class ItemTerrenoViewHolder(val binding: ItemTerrenoBinding): RecyclerView.ViewHolder(binding.root) {
      fun bind(terreno: TerrenoEntity) {
+         binding.tvType.text = terreno.tipo
+         binding.tvPrice.text = terreno.precio.toString()
          binding.imagenTerreno.load(terreno.imagen){
              crossfade(true)
              transformations(CircleCropTransformation())
