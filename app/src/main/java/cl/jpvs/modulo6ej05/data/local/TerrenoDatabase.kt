@@ -11,7 +11,7 @@ abstract class TerrenoDatabase : RoomDatabase() {
     abstract fun getITerrenoDao(): TerrenoDao
 
     companion object {
-        @Volatile
+        //@Volatile
         private var INSTANCE: TerrenoDatabase? = null
 
         fun getDataBase(context: Context): TerrenoDatabase {
@@ -31,4 +31,4 @@ abstract class TerrenoDatabase : RoomDatabase() {
             }
         }
     }
-}}
+}
