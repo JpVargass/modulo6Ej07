@@ -11,7 +11,7 @@ class Repositorio(private val terrenoAPI: TerrenoAPI, private val terrenoDao: Te
     fun obtenerTerrenos(): LiveData<List<TerrenoEntity>> = terrenoDao.obtenerTerrenos()
 
 
-    suspend fun cargarTerreno() {
+    suspend fun cargarTerrenos() {
         val respuesta = terrenoAPI.getData()
         if (respuesta.isSuccessful) {
             val resp = respuesta.body()
@@ -23,6 +23,8 @@ class Repositorio(private val terrenoAPI: TerrenoAPI, private val terrenoDao: Te
         }
 
     }
+
+    fun getTerreno(id:String):LiveData<TerrenoEntity> = terrenoDao.getTerreno(id)
 
 }
 

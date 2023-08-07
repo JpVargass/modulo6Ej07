@@ -24,12 +24,15 @@ class ListadoTerrenos : Fragment() {
     ): View? {
         binding = FragmentListadoTerrenosBinding.inflate(layoutInflater, container, false)
         initAdapter()
+        binding.btnCargar.setOnClickListener{
+            terrenoVM.getAllTerrenos()
+        }
 
         return binding.root
     }
 private fun initAdapter() {
     // a continuacion se le indica al ViewModel que obtenga la informacion
-    terrenoVM.getAllTerrenos()
+
     val adapter = AdapterTerreno()
     binding.recyclerTerreno.adapter = adapter
     //a continuaciòn se observa cuando llega la informaciòn y se muestra a travez del LiveData
